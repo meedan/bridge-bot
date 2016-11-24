@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "bridge-bot-executor",
+    "name": "bridge-bot",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "4bmhmpgah1",
+    "module": "bot"
+  }
+}
