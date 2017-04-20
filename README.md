@@ -16,9 +16,11 @@ You can ask a Meedani for a credentials file.
 
 * Install `claudia` globally: `$ npm install claudia -g`
 
+* Copy `config.js.example` to `config.js` and set your configurations
+
 * Make some change in the code (`bot.js` is the main file)
 
-* Deploy your changes: `$ AWS\_PROFILE=claudia claudia update`
+* Deploy your changes: `$ AWS_PROFILE=claudia claudia update`
 
 * Open Viber on your mobile device, join Bridge chat at http://chats.viber.com/meedanbridge and send a message to the bot
 

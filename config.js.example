@@ -1,0 +1,10 @@
+var config = {
+  checkApi: {
+    url: 'https://check-api-domain.org',
+    teamSlug: 'team-slug',
+    projectId: 123,
+    apiKey: 'ask for one',
+    httpAuth: 'user:password'
+  }
+};
+module.exports = config;
