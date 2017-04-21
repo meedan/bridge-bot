@@ -20,8 +20,8 @@ if (config.checkApi.httpAuth) {
 
 var client = new Lokka({ transport: new Transport(config.checkApi.url, { handleErrors, headers, credentials: false } ) });
 
-const mutationQuery = `($quote: String!, $pid: Int!) {
-  createProjectMedia: createProjectMedia(input: { clientMutationId: "1", project_id: $pid, quote: $quote, url: "" }) {
+const mutationQuery = `($quote: String!, $pid: Int!, $annotation: String!) {
+  createProjectMedia: createProjectMedia(input: { clientMutationId: "1", project_id: $pid, quote: $quote, url: "", set_annotation: $annotation }) {
     project_media {
       dbid
     }
@@ -29,9 +29,18 @@ const mutationQuery = `($quote: String!, $pid: Int!) {
 }`;
 
 module.exports = botBuilder(function(request) {
+  const annotation = {
+    annotation_type: 'translation_request',
+    set_fields: JSON.stringify({
+      translation_request_type: 'viber',
+      translation_request_raw_data: JSON.stringify(request)
+    })
+  };
+
   const vars = {
     quote: request.text,
-    pid: config.checkApi.projectId
+    pid: config.checkApi.projectId,
+    annotation: JSON.stringify(annotation)
   };
   
   client.mutate(mutationQuery, vars).then(resp => {
