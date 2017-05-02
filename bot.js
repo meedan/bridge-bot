@@ -7,9 +7,12 @@ var util = require('util');
 
 module.exports = botBuilder(function(request) {
   try {
+    console.log('DEBUG: Received request: ' + util.inspect(request));
+
+    const errorMessage = 'Sorry, something went wrong. Please contact the support.';
+
     var handleErrors = function(errors, data) {
-      var message = errors[0].message;
-      console.log('ERROR: ' + message);
+      console.log('ERROR: ' + util.inspect(errors));
     };
     
     var headers = {
@@ -22,10 +25,10 @@ module.exports = botBuilder(function(request) {
       headers['Authorization'] = basic;
     }
     
-    const client = new Lokka({ transport: new Transport(config.checkApi.url, { handleErrors, headers, credentials: false } ) });
+    const client = new Lokka({ transport: new Transport(config.checkApi.url, { handleErrors, headers, credentials: false, timeout: 120000 } ) });
     
-    const mutationQuery = `($quote: String!, $pid: Int!, $annotation: String!, $mid: String!) {
-      createProjectMedia: createProjectMedia(input: { clientMutationId: $mid, project_id: $pid, quote: $quote, url: "", set_annotation: $annotation }) {
+    const mutationQuery = `($quote: String!, $pid: Int!, $annotation: String!) {
+      createProjectMedia: createProjectMedia(input: { clientMutationId: "1", project_id: $pid, quote: $quote, url: "", set_annotation: $annotation }) {
         project_media {
           dbid
         }
@@ -43,18 +46,26 @@ module.exports = botBuilder(function(request) {
     const vars = {
       quote: request.text,
       pid: config.checkApi.projectId,
-      annotation: JSON.stringify(annotation),
-      mid: parseInt(Math.random() * 10000, 10).toString()
+      annotation: JSON.stringify(annotation)
     };
     
-    client.mutate(mutationQuery, vars).then(resp => {
+    console.log('DEBUG: Sending "' + request.text + '" to the server');
+    return client.mutate(mutationQuery, vars)
+    .then((resp, errors) => {
+      if (errors) {
+        console.log('ERROR: ' + util.inspect(errors));
+        return errorMessage;
+      }
       console.log('DEBUG: Text "' + request.text + '" sent to the API, which replied with: ' + util.inspect(resp));
+      return 'Thank you. We have received your request for translation. You will receive a response shortly.';
+    })
+    .catch((e) => {
+      console.log('ERROR: Trying to send "' + request.text + '" to the API returned an error: ' + e.toString());
+      return errorMessage;
     });
-
-    return 'Thank you. We have received your request for translation. You will receive a response shortly.';
   }
-  catch (e) {
+  catch(e) {
     console.log('EXCEPTION: ' + e.message);
-    return 'Sorry, something went wrong. Please contact the support.';
+    return errorMessage;
   }
 });
