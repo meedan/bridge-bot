@@ -4,18 +4,26 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update": "AWS_PROFILE=claudia claudia update",
+    "transifex:upload": "tx push -s",
+    "transifex:download": "tx pull -a -f",
+    "translate:auto": "i18n-translate-json ${GOOGLE_TRANSLATE_API_KEY} locales/ en && npm run transifex:download"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "basic-auth-header": "^1.0.1",
     "claudia-bot-builder": "^2.7.1",
+    "i18n": "^0.8.3",
+    "i18n-translate-json": "^1.0.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.6.1",
     "util": "^0.10.3"
   },
   "files": [
-    "*.js"
+    "*.js",
+    "*.json",
+    "locales/*.json"
   ]
 }

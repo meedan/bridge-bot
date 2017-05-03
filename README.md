@@ -20,8 +20,12 @@ You can ask a Meedani for a credentials file.
 
 * Make some change in the code (`bot.js` is the main file)
 
-* Deploy your changes: `$ AWS_PROFILE=claudia claudia update`
+* Deploy your changes: `npm run update`
 
 * Open Viber on your mobile device, join Bridge chat at http://chats.viber.com/meedanbridge and send a message to the bot
 
 * You should receive a response
+
+### Localization
+
+As usual, localization is done on [Transifex](https://www.transifex.com/meedan/check-2/bridge-viber-bot/). You must have the `tx` client [installed](http://docs.transifex.com/client/setup/) on your computer. You can send new strings to Transifex by running `npm run transifex:upload` (first add them manually to `locales/en.yml`) and you can download translations from Transifex by running `npm run transifex:download`. For languages not supported by our project on Transifex, you can run `GOOGLE_TRANSLATE_API_KEY=your_key npm run translate:auto`.
