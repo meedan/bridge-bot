@@ -59,6 +59,7 @@ module.exports = botBuilder(function(request) {
       annotation_type: 'translation_request',
       set_fields: JSON.stringify({
         translation_request_type: 'viber',
+        translation_request_id: request.originalRequest['message_token'],
         translation_request_raw_data: JSON.stringify(request)
       })
     };
@@ -74,14 +75,14 @@ module.exports = botBuilder(function(request) {
     .then((resp, errors) => {
       if (errors) {
         console.log('ERROR: ' + util.inspect(errors));
-        return errorMessage;
+        return '';
       }
       console.log('DEBUG: Text "' + request.text + '" sent to the API, which replied with: ' + util.inspect(resp));
       return i18n.__('Thank you. We have received your request for translation. You will receive a response shortly.');
     })
     .catch((e) => {
       console.log('ERROR: Trying to send "' + request.text + '" to the API returned an error: ' + e.toString());
-      return errorMessage;
+      return '';
     });
   }
   catch(e) {
