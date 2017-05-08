@@ -12,6 +12,12 @@ module.exports = botBuilder(function(request) {
   try {
     console.log('DEBUG: Received request: ' + util.inspect(request));
 
+    var messageType = request.originalRequest.message.type;
+    if (messageType != 'text') {
+      console.log('ERROR: Message type should be "text" but was "' + messageType + '"');
+      return '';
+    }
+
     var locale;
     try {
       locale = request.originalRequest.sender.language;
