@@ -84,7 +84,12 @@ module.exports = botBuilder(function(request) {
         return '';
       }
       console.log('DEBUG: Text "' + request.text + '" sent to the API, which replied with: ' + util.inspect(resp));
-      return i18n.__('Thank you. We have received your request for translation. You will receive a response shortly.');
+      if (resp && resp.createProjectMedia && resp.createProjectMedia.project_media && resp.createProjectMedia.project_media.dbid) {
+        return i18n.__('Thank you. We have received your request for translation. You will receive a response shortly.');
+      }
+      else {
+        return '';
+      }
     })
     .catch((e) => {
       console.log('ERROR: Trying to send "' + request.text + '" to the API returned an error: ' + e.toString());
