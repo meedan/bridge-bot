@@ -1,4 +1,5 @@
 {
 	"Sorry, something went wrong. Please contact the support.": "ขอโทษมีบางอย่างผิดพลาด. โปรดติดต่อฝ่ายสนับสนุน",
-	"Thank you. We have received your request for translation. You will receive a response shortly.": "ขอขอบคุณ. เราได้รับคำขอของคุณสำหรับการแปล คุณจะได้รับการตอบสนองในไม่ช้า"
+	"Thank you. We have received your request for translation. You will receive a response shortly.": "ขอขอบคุณ. เราได้รับคำขอแปลของคุณแล้ว คุณจะได้รับคำตอบในไม่ช้า",
+	"Sorry! Right now, Bridge only accepts translation requests in the form of text.": "ขออภัย! ขณะนี้ Bridge ยอมรับคำขอการแปลในรูปแบบข้อความเท่านั้น"
 }

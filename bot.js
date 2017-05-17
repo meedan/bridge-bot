@@ -12,12 +12,6 @@ module.exports = botBuilder(function(request) {
   try {
     console.log('DEBUG: Received request: ' + util.inspect(request));
 
-    var messageType = request.originalRequest.message.type;
-    if (messageType != 'text') {
-      console.log('ERROR: Message type should be "text" but was "' + messageType + '"');
-      return '';
-    }
-
     var locale;
     try {
       locale = request.originalRequest.sender.language;
@@ -36,6 +30,12 @@ module.exports = botBuilder(function(request) {
     i18n.setLocale(locale);
 
     errorMessage = i18n.__('Sorry, something went wrong. Please contact the support.');
+
+    var messageType = request.originalRequest.message.type;
+    if (messageType != 'text') {
+      console.log('ERROR: Message type should be "text" but was "' + messageType + '"');
+      return i18n.__('Sorry! Right now, Bridge only accepts translation requests in the form of text.');
+    }
 
     var handleErrors = function(errors, data) {
       console.log('ERROR: ' + util.inspect(errors));
