@@ -2,6 +2,7 @@ var config = {
   checkApi: {
     url: 'https://check-api-domain.org',
     teamSlug: 'team-slug',
+    teamId: 8,
     projectId: 123,
     apiKey: 'ask for one',
     httpAuth: 'user:password'
