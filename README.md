@@ -16,9 +16,11 @@ You can ask a Meedani for a credentials file.
 
 * Install `claudia` globally: `$ npm install claudia -g`
 
+* Use an existing bot instance (by copying over a `claudia.json` file) or create a new bot on AWS this way: `AWS_PROFILE=claudia claudia create --region us-east-1 --name my-bridge-bot --api-module bot --configure-viber-bot`
+
 * Copy `config.js.example` to `config.js` and set your configurations
 
-* Make some change in the code (`bot.js` is the main file)
+* Make some change in the code
 
 * Deploy your changes: `npm run update`
 
