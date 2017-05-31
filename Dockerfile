@@ -12,7 +12,7 @@ ENV DEPLOYUSER=bridgedeploy \
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
-    && mkdir -p /home/${DEPLOYUSER}/.aws
+    && mkdir -p /home/${DEPLOYUSER}/.aws \
     && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
 
 RUN npm install -g claudia \
